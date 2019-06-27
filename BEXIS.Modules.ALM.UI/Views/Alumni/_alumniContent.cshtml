@@ -1,0 +1,29 @@
+﻿@using BEXIS.Modules.AMM.UI.Model
+
+@model  List<AlumniUserModel>
+
+
+<table>
+    @foreach (AlumniUserModel u in Model)
+    {
+        <tr>
+            <td>
+                @u.FirstName
+            </td>
+            <td>
+                @u.LastName
+            </td>
+            <td>
+                @u.User.UserName
+            </td>
+                @u.User.Email
+            <td>
+                @u.StartDate
+            </td>
+            <td>
+                @u.EndDate
+            </td>
+        </tr>
+    }
+</table>
+

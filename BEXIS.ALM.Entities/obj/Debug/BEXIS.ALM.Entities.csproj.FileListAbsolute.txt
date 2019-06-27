@@ -1,0 +1,13 @@
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\BEXIS.ALM.Entities.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\BEXIS.ALM.Entities.pdb
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\Vaiona.Entities.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\Vaiona.Core.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\obj\Debug\BEXIS.ALM.Entities.csproj.CoreCompileInputs.cache
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\obj\Debug\BEXIS.ALM.Entities.csproj.CopyComplete
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\obj\Debug\BEXIS.ALM.Entities.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\obj\Debug\BEXIS.ALM.Entities.pdb
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\BExIS.Security.Entities.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\BExIS.Security.Entities.pdb
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Entities\obj\Debug\BEXIS.ALM.Entities.csprojAssemblyReference.cache

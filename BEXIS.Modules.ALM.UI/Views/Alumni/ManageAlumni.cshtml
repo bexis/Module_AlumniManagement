@@ -1,0 +1,26 @@
+﻿@model List<BEXIS.Modules.ALM.UI.Model.AlumniUserModel>
+
+@{
+    Layout = null;
+}
+
+@section Information
+{
+}
+
+
+
+@section LeftPane
+{
+    <div class="alumniContent">
+        @Html.Partial("_alumniSearch", Model)
+    </div>
+}
+
+
+<div>
+    <div class="alumniContent">
+        @Html.Partial("_alumniContent", Model)
+    </div>
+</div>
+
