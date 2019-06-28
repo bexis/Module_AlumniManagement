@@ -1,4 +1,4 @@
-﻿@using BEXIS.Modules.AMM.UI.Model
+﻿@using BEXIS.Modules.ALM.UI.Model
 
 @model  List<AlumniUserModel>
 
@@ -8,15 +8,14 @@
     {
         <tr>
             <td>
-                @u.FirstName
-            </td>
-            <td>
-                @u.LastName
+                @u.Name
             </td>
             <td>
                 @u.User.UserName
             </td>
+            <td>
                 @u.User.Email
+            </td>
             <td>
                 @u.StartDate
             </td>

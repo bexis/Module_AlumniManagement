@@ -9,26 +9,25 @@ namespace BEXIS.Modules.ALM.UI.Model
 {
     public class AlumniUserModel
     {
-        public User User { get; set; }
+        public string UserName { get; set; }
         public bool IsAlumni { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        //public DateTime StartDate { get; set; }
+        //public DateTime EndDate { get; set; }
+        public string Name { get; set; }
 
         public AlumniUserModel()
         {
-            User = new User();
+            
         }
 
         public AlumniUserModel(User user, Party party, bool isAlumni)
         {
-            User = user;
+            UserName = user.UserName;
             IsAlumni = isAlumni;
-            StartDate = party.StartDate;
-            EndDate = party.EndDate;
-            FirstName = party.Name;
-            LastName = party.Name;
+            
+            //StartDate = party.StartDate;
+            //EndDate = party.EndDate;
+            Name = party.Name;
         }
 
 

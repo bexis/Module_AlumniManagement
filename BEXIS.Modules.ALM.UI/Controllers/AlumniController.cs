@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using BExIS.Web.Shell.Areas.ALM.Helpers;
+using System.Web.Services;
+using Newtonsoft.Json;
 
 namespace BEXIS.Modules.ALM.UI.Controllers
 {
@@ -16,20 +18,29 @@ namespace BEXIS.Modules.ALM.UI.Controllers
         // GET: Alumni
         public ActionResult Index()
         {
+
+            return View("ManageAlumni");
+        }
+
+        [WebMethod]
+        public JsonResult GetAllUsers()
+        {
             List<AlumniUserModel> model = new List<AlumniUserModel>();
 
             UserManager userManager = new UserManager();
+            List<object> userObjectList = new List<object>();
 
             using (var partyManager = new PartyManager())
             {
                 foreach (User user in userManager.Users)
                 {
                     var party = partyManager.GetPartyByUser(user.Id);
-                    model.Add(new AlumniUserModel(user, party, false));
+                    userObjectList.Add("[" + JsonConvert.SerializeObject(new AlumniUserModel(user, party, false)) + "]");
+                    //userObjectList.Add(new object[] { JsonHelper.JsonSerializer<AlumniUserModel>(new AlumniUserModel(user, party, false)) });
                 }
             }
 
-            return View("ManageAlumni", model);
+            return Json(userObjectList.ToArray(), JsonRequestBehavior.AllowGet);
         }
-    }
+        }
 }

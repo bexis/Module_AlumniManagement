@@ -1,8 +1,11 @@
-﻿@model List<BEXIS.Modules.ALM.UI.Model.AlumniUserModel>
+﻿@*<link rel='stylesheet' href="@Url.Content("~/Areas/ALM/BEXIS.Modules.ALM.UI/Scripts/jqGrid/css/trirand/ui.jqgrid.css")" />*@
 
-@{
-    Layout = null;
+@section scripts
+{
+    <script type="text/javascript" src="@Url.Content("~/Areas/ALM/BEXIS.Modules.ALM.UI/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js")"></script>
 }
+
+
 
 @section Information
 {
@@ -13,14 +16,36 @@
 @section LeftPane
 {
     <div class="alumniContent">
-        @Html.Partial("_alumniSearch", Model)
+        @*@Html.Partial("_alumniSearch", Model)*@
     </div>
 }
 
 
 <div>
     <div class="alumniContent">
-        @Html.Partial("_alumniContent", Model)
+        <table id="example" class="display" width="100%"></table>
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#example').DataTable({
+            ajax: {
+                url: '@Url.Content("~/ALM/Alumni/GetAllUsers")',
+                dataSrc: ''
+            },
+            columns: [
+                { data: "UserName" },
+                { data:'IsAlumni' },
+                { data:'Name' }
+        ]
+    } );
+} );
+
+    
+
+</script>
+
 
