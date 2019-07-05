@@ -34,5 +34,29 @@ namespace BEXIS.Modules.ALM.UI.Helper
 
             return entityPermission;
         }
+
+        public static AlumniFeaturePermission ToAlumniFeaturePermission(FeaturePermission featurePermission)
+        {
+            var alumniFeaturePermission = new AlumniFeaturePermission
+            {
+                Feature = featurePermission.Feature,
+                PermissionType = featurePermission.PermissionType,
+                Subject = featurePermission.Subject
+            };
+
+            return alumniFeaturePermission;
+        }
+
+        public static FeaturePermission ToFeaturePermission(AlumniFeaturePermission alumniFeaturePermission)
+        {
+            var featurePermission = new FeaturePermission
+            {
+                Feature = alumniFeaturePermission.Feature,
+                PermissionType = alumniFeaturePermission.PermissionType,
+                Subject = alumniFeaturePermission.Subject
+            };
+
+            return featurePermission;
+        }
     }
 }

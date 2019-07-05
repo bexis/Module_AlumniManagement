@@ -1,8 +1,10 @@
-﻿@*<link rel='stylesheet' href="@Url.Content("~/Areas/ALM/BEXIS.Modules.ALM.UI/Scripts/jqGrid/css/trirand/ui.jqgrid.css")" />*@
+﻿@using BEXIS.Modules.ALM.UI.Model
+@model List<AlumniUserModel>
 
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Areas/ALM/BEXIS.Modules.ALM.UI/Scripts/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/ALM/BEXIS.Modules.ALM.UI/Scripts/DataTables/Select-1.3.0/js/dataTables.select.min.js")"></script>
 }
 
 
@@ -23,28 +25,74 @@
 
 <div>
     <div class="alumniContent">
-        <table id="example" class="display" width="100%"></table>
+        <table id="example" class="display" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        UserName
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        IsAlumni<br />
+                        <input type="checkbox" name="select_all" value="1" id="example-select-all">
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserName</td>
+
+                        <td>@item.Name</td>
+
+                        <td>@item.IsAlumni</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>
+                        UserName
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        IsAlumni
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
     </div>
 </div>
 
 
 <script type="text/javascript">
 
-    $(document).ready(function () {
-        $('#example').DataTable({
-            ajax: {
-                url: '@Url.Content("~/ALM/Alumni/GetAllUsers")',
-                dataSrc: ''
-            },
-            columns: [
-                { data: "UserName" },
-                { data:'IsAlumni' },
-                { data:'Name' }
-        ]
-    } );
-} );
+     $(document).ready(function () {
+    var table = $('#example').dataTable( {
+      "columnDefs": [ {
+            "targets": 2, //Targets would be the 0 based index of the column
+             "data": 'IsAlumni',
+             "render": function ( data, type, full, meta ){
+                       return '<input type="checkbox" name="id[]"  checked="' + $('<div/>').text(data).html() + '" value="' + $('<div/>').text(data).html() + '">';
+             }
+       } ]
+ });
 
-    
+    $('#example').on('click', 'input[type="checkbox"]', function() {
+    console.log('best', 'click');
+    });    
+
+
+    });
 
 </script>
 

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using BExIS.Web.Shell.Areas.ALM.Helpers;
 using System.Web.Services;
 using Newtonsoft.Json;
+using BExIS.Modules.ALM.UI.Helpers;
 
 namespace BEXIS.Modules.ALM.UI.Controllers
 {
@@ -18,6 +18,36 @@ namespace BEXIS.Modules.ALM.UI.Controllers
         // GET: Alumni
         public ActionResult Index()
         {
+            List<AlumniUserModel> model = new List<AlumniUserModel>();
+
+            UserManager userManager = new UserManager();
+            List<object> userObjectList = new List<object>();
+
+            using (var partyManager = new PartyManager())
+            {
+                foreach (User user in userManager.Users)
+                {
+                    var party = partyManager.GetPartyByUser(user.Id);
+                    model.Add(new AlumniUserModel(user,party, true));
+                }
+            }
+
+
+            return View("ManageAlumni", model);
+        }
+
+        public ActionResult ChangeAlumniStatus(string userName)
+        {
+            UserManager userManager = new UserManager();
+            User user = userManager.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            //Check if alumni
+            bool isAlumni = AlumniStatus.IsAlumni(user.Id);
+            bool status = false;
+            if (isAlumni)
+                status = AlumniStatus.ChangeToAlumni(user);
+            else
+                status = AlumniStatus.ChangeToNonAlumni(user);
 
             return View("ManageAlumni");
         }
@@ -40,7 +70,7 @@ namespace BEXIS.Modules.ALM.UI.Controllers
                 }
             }
 
-            return Json(userObjectList.ToArray(), JsonRequestBehavior.AllowGet);
+            return Json(userObjectList, JsonRequestBehavior.AllowGet);
         }
         }
 }
