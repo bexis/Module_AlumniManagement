@@ -19,6 +19,12 @@
 						extends="./settingsRoot"
 						/>-->
 	<!-- Menubar Example-->
+
+    <Export tag="settings" id="alumni" order="15"
+        title="Manage Alumni User" description="" icon=""
+        controller="Alumni" action="Index"
+        extends="./settingsRoot" />
+    
 		<!--<Export tag="menubar" id="createDataset" order="1"
 						title="Create Dataset" description="Create new Dataset" icon=""
 						controller="CreateDataset" action="index"

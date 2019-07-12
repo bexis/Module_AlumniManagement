@@ -28,7 +28,7 @@ namespace BEXIS.Modules.ALM.UI.Controllers
                 foreach (User user in userManager.Users)
                 {
                     var party = partyManager.GetPartyByUser(user.Id);
-                    model.Add(new AlumniUserModel(user,party, true));
+                    model.Add(new AlumniUserModel(user,party, AlumniStatus.IsAlumni(user.Id)));
                 }
             }
 
@@ -45,11 +45,39 @@ namespace BEXIS.Modules.ALM.UI.Controllers
             bool isAlumni = AlumniStatus.IsAlumni(user.Id);
             bool status = false;
             if (isAlumni)
-                status = AlumniStatus.ChangeToAlumni(user);
+                status = AlumniStatus.IsAlumni(user.Id);
             else
                 status = AlumniStatus.ChangeToNonAlumni(user);
 
             return View("ManageAlumni");
+        }
+
+        public void ChangeStatusToAlumni(string userName)
+        {
+            if (userName != null)
+            {
+                UserManager userManager = new UserManager();
+                var userTask = userManager.FindByNameAsync(userName);
+                userTask.Wait();
+                var user = userTask.Result;
+                bool isAlumni = AlumniStatus.IsAlumni(user.Id);
+                if (!isAlumni)
+                    AlumniStatus.ChangeToAlumni(user);
+            }
+        }
+
+        public void ChangeStatusToNonAlumni(string userName)
+        {
+            if (userName != null)
+            {
+                UserManager userManager = new UserManager();
+                var userTask = userManager.FindByNameAsync(userName);
+                userTask.Wait();
+                var user = userTask.Result;
+                bool isAlumni = AlumniStatus.IsAlumni(user.Id);
+                if (isAlumni)
+                    AlumniStatus.ChangeToNonAlumni(user);
+            }
         }
 
         [WebMethod]

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Content Include="Mappings\Default\Alumni\AlumniEntityPermission.hbm.xml" />
     <Content Include="Mappings\Default\Alumni\AlumniFeaturePermission.hbm.xml" />
+    <Content Include="Mappings\Default\Alumni\Alumni_Users_Groups.hbm.xml" />
     <Content Include="Mappings\Default\Data\Example.hbm.xml">
       <SubType>Designer</SubType>
     </Content>

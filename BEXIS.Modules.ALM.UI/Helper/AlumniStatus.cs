@@ -40,21 +40,30 @@ namespace BExIS.Modules.ALM.UI.Helpers
             using (var featurePermissionManager = new FeaturePermissionManager())
             {
                 //transfer all feature permission
-                var featurePermissions = featurePermissionManager.FeaturePermissionRepository.Get(a => a.Subject.Id == userId).ToList();
-                if (featurePermissions != null)
-                {
-                    List<AlumniFeaturePermission> aList = new List<AlumniFeaturePermission>();
-                    featurePermissions.ForEach(a => aList.Add(PermissionConverter.ToAlumniFeaturePermission(a)));
+                var featurePermissions = featurePermissionManager.FeaturePermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
+                if (featurePermissions.Count > 0)
+                { 
+                    //featurePermissions.ForEach(a => aList.Add(PermissionConverter.ToAlumniFeaturePermission(a)));
+
+                    //Create for each feature permission a alumni feature permission
+                    featurePermissions.ForEach(u => alumniFeaturePermissionManager.Create(user, u.Feature, u.PermissionType));
+                    //Remove feature permissions
+                    featurePermissions.ForEach(u => featurePermissionManager.Delete(u));
+
                     statuschanged = true;
                 }
 
                 //transfer entity permisstions
-                var entityPermissions = entityPermissionManager.EntityPermissionRepository.Get(a => a.Subject.Id == userId).ToList();
+                var entityPermissions = entityPermissionManager.EntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
 
-                if (entityPermissions != null)
+                if (entityPermissions.Count > 0)
                 {
-                    List<AlumniEntityPermission> aList = new List<AlumniEntityPermission>();
-                    entityPermissions.ForEach(a => aList.Add(PermissionConverter.ToAlumniEntityPermission(a)));
+                    //Create alumni entity permissions
+                    entityPermissions.ForEach(u => alumniEntityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
+                    //remove
+                    entityPermissions.ForEach(u => entityPermissionManager.Delete(u));
+
+
                     statuschanged = true;
                 }
             }
@@ -79,20 +88,24 @@ namespace BExIS.Modules.ALM.UI.Helpers
             {
                 //transfer all feature permission
                 var alumniFeaturePermissions = alumniFeaturePermissionManager.AlumniFeaturePermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
-                if (alumniFeaturePermissions != null)
+                if (alumniFeaturePermissions .Count > 0)
                 {
-                    List<FeaturePermission> aList = new List<FeaturePermission>();
-                    alumniFeaturePermissions.ForEach(a => aList.Add(PermissionConverter.ToFeaturePermission(a)));
+                    alumniFeaturePermissions.ForEach(u => featurePermissionManager.Create(user, u.Feature, u.PermissionType));
+                    //remove
+                    alumniFeaturePermissions.ForEach(u => alumniFeaturePermissionManager.Delete(u));
+
                     statuschanged = true;
                 }
 
                 //transfer entity permisstions
                 var alumniEntityPermissions = alumniEntityPermissionManager.AlumniEntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
 
-                if (alumniEntityPermissions != null)
+                if (alumniEntityPermissions.Count > 0)
                 {
-                    List<EntityPermission> aList = new List<EntityPermission>();
-                    alumniEntityPermissions.ForEach(a => aList.Add(PermissionConverter.ToEntityPermission(a)));
+                    alumniEntityPermissions.ForEach(u => entityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
+                    //remove
+                    alumniEntityPermissions.ForEach(u => alumniEntityPermissionManager.Delete(u));
+
                     statuschanged = true;
                 }
             }

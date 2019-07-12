@@ -25,7 +25,7 @@
 
 <div>
     <div class="alumniContent">
-        <table id="example" class="display" width="100%">
+        <table id="alumniTable" class="display" width="100%">
             <thead>
                 <tr>
                     <th>
@@ -77,19 +77,46 @@
 <script type="text/javascript">
 
      $(document).ready(function () {
-    var table = $('#example').dataTable( {
+         var table = $('#alumniTable').dataTable( {
       "columnDefs": [ {
             "targets": 2, //Targets would be the 0 based index of the column
              "data": 'IsAlumni',
-             "render": function ( data, type, full, meta ){
-                       return '<input type="checkbox" name="id[]"  checked="' + $('<div/>').text(data).html() + '" value="' + $('<div/>').text(data).html() + '">';
+          "render": function (data, type, full, meta) {
+              if (data === "False") {
+                  return '<input type="checkbox" name="id[]">';
+              }
+              else {
+                  return '<input type="checkbox" name="id[]" checked>';
+              }
              }
        } ]
  });
 
-    $('#example').on('click', 'input[type="checkbox"]', function() {
-    console.log('best', 'click');
-    });    
+
+         $('#alumniTable').on('click', 'input[type="checkbox"]', function () {
+
+         var t = $("#alumniTable").DataTable().row(this).data();
+         var userName = $("#alumniTable").DataTable().cell(t, 0).data();
+
+         if ($(this).is(':checked')) {
+                    $.post('@Url.Action("ChangeStatusToAlumni", "Alumni")',
+                        {
+                            userName: userName
+                        },
+                        function () {
+                            $("#alumniTable .t-refresh").trigger('click');
+                        });
+                } else {
+                    $.post('@Url.Action("ChangeStatusToNonAlumni", "Alumni")',
+                        {
+                            userName: userName
+                        },
+                        function () {
+                            $("#alumniTable .t-refresh").trigger('click');
+                        });
+                }
+            });
+        
 
 
     });

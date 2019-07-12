@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Alumni\AlumniEntityPermission.cs" />
     <Compile Include="Alumni\AlumniFeaturePermission.cs" />
+    <Compile Include="Alumni\AlumniUsersGroupsRelation.cs" />
     <Compile Include="Data\Example.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

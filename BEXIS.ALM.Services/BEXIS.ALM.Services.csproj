@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Alumni\AlumniEntityPermissionManager.cs" />
     <Compile Include="Alumni\AlumniFeaturePermissionManager.cs" />
+    <Compile Include="Alumni\AlumniUsersGroupsRelationManager.cs" />
     <Compile Include="ExampleManager.cs" />
   </ItemGroup>
   <ItemGroup>
