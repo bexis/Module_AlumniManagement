@@ -33,7 +33,7 @@ namespace BExIS.Modules.ALM.UI.Helpers
         public static bool ChangeToAlumni(User user)
         {
             bool statuschanged = false;
-
+            //entity and feature permissions
             using (var alumniEntityPermissionManager = new AlumniEntityPermissionManager())
             using (var alumniFeaturePermissionManager = new AlumniFeaturePermissionManager())
             using (var entityPermissionManager = new EntityPermissionManager())
@@ -42,7 +42,7 @@ namespace BExIS.Modules.ALM.UI.Helpers
                 //transfer all feature permission
                 var featurePermissions = featurePermissionManager.FeaturePermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
                 if (featurePermissions.Count > 0)
-                { 
+                {
                     //featurePermissions.ForEach(a => aList.Add(PermissionConverter.ToAlumniFeaturePermission(a)));
 
                     //Create for each feature permission a alumni feature permission
@@ -68,11 +68,26 @@ namespace BExIS.Modules.ALM.UI.Helpers
                 }
             }
 
-            //add to alumni group
-            GroupManager groupManager = new GroupManager();
-            var alumniGroup = groupManager.Groups.Where(g => g.Name.ToLower() == "alumni").FirstOrDefault();
-            alumniGroup.Users.Add(user);
-            groupManager.UpdateAsync(alumniGroup);
+            //remove all groups and add alumni
+            using (var groupManager = new GroupManager())
+            using (var alumniUsersGroupsRelationManager = new AlumniUsersGroupsRelationManager())
+            {
+                //remove all groups from user and add to alumniUsersGroupsRelation
+                foreach (var group in user.Groups)
+                {
+                    alumniUsersGroupsRelationManager.Create(user.Id, group.Id);
+
+                    group.Users.Remove(user);
+                    groupManager.UpdateAsync(group);
+                }
+
+                //add alumni
+                var alumniGroup = groupManager.Groups.Where(g => g.Name.ToLower() == "alumni").FirstOrDefault();
+                alumniGroup.Users.Add(user);
+                groupManager.UpdateAsync(alumniGroup);
+
+                statuschanged = true;
+            }
 
             return statuschanged;
         }
@@ -110,13 +125,34 @@ namespace BExIS.Modules.ALM.UI.Helpers
                 }
             }
 
-            //remove from alumni group
-            GroupManager groupManager = new GroupManager();
-            var alumniGroup = groupManager.Groups.Where(g => g.Name.ToLower() == "alumni").FirstOrDefault();
-            alumniGroup.Users.Remove(user);
-            groupManager.UpdateAsync(alumniGroup);
+
+            //add all group to user again
+            using (var groupManager = new GroupManager())
+            using (var alumniUsersGroupsRelationManager = new AlumniUsersGroupsRelationManager())
+            {
+                var relations = alumniUsersGroupsRelationManager.AlumniFeaturePermissions.Where(r => r.UserRef == user.Id).ToList();
+                foreach (var r in relations)
+                {
+                    //add all group to user again
+                    var group = groupManager.FindByIdAsync(r.GroupRef).Result;
+                    group.Users.Add(user);
+                    groupManager.UpdateAsync(group);
+
+                    //delete relation
+                    alumniUsersGroupsRelationManager.Delete(r);
+                }
+
+                //remove alumni group
+                var alumniGroup = groupManager.Groups.Where(g => g.Name.ToLower() == "alumni").FirstOrDefault();
+                alumniGroup.Users.Remove(user);
+                groupManager.UpdateAsync(alumniGroup);
+
+                statuschanged = true;
+            }
+
             return statuschanged;
         }
-    }
+            
+     }
 
 }
