@@ -53,19 +53,19 @@ namespace BExIS.Modules.ALM.UI.Helpers
                     statuschanged = true;
                 }
 
-                //transfer entity permisstions
-                var entityPermissions = entityPermissionManager.EntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
+                //transfer entity permisstions where uder has access via
+                //var entityPermissions = entityPermissionManager.EntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
 
-                if (entityPermissions.Count > 0)
-                {
-                    //Create alumni entity permissions
-                    entityPermissions.ForEach(u => alumniEntityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
-                    //remove
-                    entityPermissions.ForEach(u => entityPermissionManager.Delete(u));
+                //if (entityPermissions.Count > 0)
+                //{
+                //    //Create alumni entity permissions
+                //    entityPermissions.ForEach(u => alumniEntityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
+                //    //remove
+                //    entityPermissions.ForEach(u => entityPermissionManager.Delete(u));
 
 
-                    statuschanged = true;
-                }
+                //    statuschanged = true;
+                //}
             }
 
             //remove all groups and add alumni
@@ -113,16 +113,16 @@ namespace BExIS.Modules.ALM.UI.Helpers
                 }
 
                 //transfer entity permisstions
-                var alumniEntityPermissions = alumniEntityPermissionManager.AlumniEntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
+                //var alumniEntityPermissions = alumniEntityPermissionManager.AlumniEntityPermissionRepository.Get(a => a.Subject.Id == user.Id).ToList();
 
-                if (alumniEntityPermissions.Count > 0)
-                {
-                    alumniEntityPermissions.ForEach(u => entityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
-                    //remove
-                    alumniEntityPermissions.ForEach(u => alumniEntityPermissionManager.Delete(u));
+                //if (alumniEntityPermissions.Count > 0)
+                //{
+                //    alumniEntityPermissions.ForEach(u => entityPermissionManager.Create(user, u.Entity, u.Key, u.Rights));
+                //    //remove
+                //    alumniEntityPermissions.ForEach(u => alumniEntityPermissionManager.Delete(u));
 
-                    statuschanged = true;
-                }
+                //    statuschanged = true;
+                //}
             }
 
 

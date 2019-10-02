@@ -3,4 +3,3 @@ C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Orm.NH\bin\Deb
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Orm.NH\obj\Debug\BEXIS.ALM.Orm.NH.csproj.CoreCompileInputs.cache
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Orm.NH\obj\Debug\BEXIS.ALM.Orm.NH.dll
 C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Orm.NH\obj\Debug\BEXIS.ALM.Orm.NH.pdb
-C:\_work\_bexis2\Core\Console\BExIS.Web.Shell\Areas\ALM\BEXIS.ALM.Orm.NH\obj\Debug\BEXIS.ALM.Orm.NH.csprojAssemblyReference.cache
