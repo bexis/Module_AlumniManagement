@@ -500,6 +500,7 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Scripts\DataTables\Buttons-1.5.6\css\common.scss" />
     <Content Include="Scripts\DataTables\Buttons-1.5.6\css\mixins.scss" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
